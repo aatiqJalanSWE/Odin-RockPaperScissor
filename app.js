@@ -1,29 +1,42 @@
 const options = ["rock", "paper", "scissors"];
 
+const CHOICES = {
+  ROCK: "rock",
+  PAPER: "paper",
+  SCISSORS: "scissors",
+};
+
+const RESULTS = {
+  DRAW: "Draw",
+  PLAYER: "Player",
+  COMPUTER: "Computer",
+};
+
 function getComputerChoice() {
-  const choice = options[Math.floor(Math.random() * options.length)];
-  return choice;
+  return options[Math.floor(Math.random() * options.length)];
 }
 
 function checkWinner(playerSelection, computerSelection) {
   if (playerSelection == computerSelection) {
-    return "Draw";
+    return RESULTS.DRAW;
   } else if (
-    (playerSelection == "rock" && computerSelection == "scissors") ||
-    (playerSelection == "scissors" && computerSelection == "paper") ||
-    (playerSelection == "paper" && computerSelection == "rock")
+    (playerSelection == CHOICES.ROCK &&
+      computerSelection == CHOICES.SCISSORS) ||
+    (playerSelection == CHOICES.SCISSORS &&
+      computerSelection == CHOICES.PAPER) ||
+    (playerSelection == CHOICES.PAPER && computerSelection == CHOICES.ROCK)
   ) {
-    return "Player";
+    return RESULTS.PLAYER;
   } else {
-    return "Computer";
+    return RESULTS.COMPUTER;
   }
 }
 
 function playRound(playerSelction, computerSelection) {
   const result = checkWinner(playerSelction, computerSelection);
-  if (result == "Draw") {
+  if (result == RESULTS.DRAW) {
     return "It's a draw!";
-  } else if (result == "Player") {
+  } else if (result == RESULTS.PLAYER) {
     return `You Win!  ${playerSelction} beats  ${computerSelection}`;
   } else {
     return `You Lost!  ${computerSelection} beats ${playerSelction}`;
@@ -47,7 +60,7 @@ function getPlayerChoice() {
 
 function game() {
   alert(
-    "Welcom to the game of Odin Rock Paper and Scissors Made by AATIQ AFZAL"
+    "Welcome to the game of Odin Rock Paper and Scissors Made by AATIQ AFZAL"
   );
   console.log("welcome to my game Made by Aatiq Afzal");
   let countPlayer = 0;
@@ -58,10 +71,10 @@ function game() {
     const computerSelection = getComputerChoice();
     console.log(playRound(playerSelection, computerSelection));
     console.log("---------------------------");
-
-    if (checkWinner(playerSelection, computerSelection) == "Player") {
+    const winner = checkWinner(playerSelection, computerSelection);
+    if (winner == RESULTS.PLAYER) {
       countPlayer++;
-    } else if (checkWinner(playerSelection, computerSelection) == "Computer") {
+    } else if (winner == RESULTS.COMPUTER) {
       countComputer++;
     }
   }
